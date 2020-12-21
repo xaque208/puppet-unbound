@@ -6,4 +6,5 @@ type Unbound::Module = Enum[
   'subnetcache',
   'ipsecmod',
   'cachedb',
+  'respip',
 ]

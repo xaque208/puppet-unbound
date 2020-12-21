@@ -942,6 +942,47 @@ describe 'unbound' do
           ).without_content('pidfile:')
         end
       end
+      context 'RPZs config' do
+        let(:params) do
+          { 
+            modules: ['respip'],
+            rpzs: {
+              'test1' => {
+                'primary' => ['192.0.1.2', 'primary.example.org'],
+              },
+              'test2' => {
+                'url' => ['https://primary.example.org/zone'],
+                'allow_notify' => ['192.0.1.2', '2001:db8::/32'],
+                'zonefile' => '/foo/bar',
+                'rpz_action_overrude' => 'drop',
+                'rpz_log' => true,
+                'rpz_log_name' => 'foobar',
+                'tags' => ['foo', 'bar'],
+              },
+              'test3' => {
+                'url' => ['https://primary.example.org/zone'],
+                'allow_notify' => ['192.0.1.2', '2001:db8::/32'],
+                'zonefile' => '/foo/bar',
+                'rpz_action_overrude' => 'cname',
+                'rpz_cname_override' => 'cname.example.org',
+                'rpz_log' => true,
+                'rpz_log_name' => 'foobar',
+                'tags' => ['foo', 'bar'],
+              },
+            }
+          }
+        end
+        it { is_expected.to compile.with_all_deps }
+        it do
+          is_expected.to contain_concat__fragment(
+            'unbound-modules'
+          ).with_content(
+            %r{
+
+            }x
+          )
+        end
+      end
     end
   end
 end
