@@ -62,7 +62,7 @@ class unbound (
   Optional[String]                                     $username,
   Stdlib::Absolutepath                                 $directory,
   Optional[Stdlib::Absolutepath]                       $logfile,
-  Optional[String]                                     $log_identity,                 # version 1.6.0 
+  Optional[String]                                     $log_identity,                 # version 1.6.0
   Boolean                                              $log_time_ascii,
   Boolean                                              $log_queries,
   Boolean                                              $log_replies,                  # version 1.6.1
@@ -118,7 +118,7 @@ class unbound (
   Optional[Integer]                                    $key_cache_slabs,
   Optional[Unbound::Size]                              $neg_cache_size,
   Boolean                                              $unblock_lan_zones,
-  Boolean                                              $insecure_lan_zones,            # version 1.5.8 
+  Boolean                                              $insecure_lan_zones,            # version 1.5.8
   Optional[Unbound::Local_zone]                        $local_zone,
   Optional[Array[String]]                              $local_data,
   Optional[Array[String]]                              $local_data_ptr,
@@ -184,6 +184,7 @@ class unbound (
   Integer[1,65536]                                     $redis_server_port,
   Integer[1]                                           $redis_timeout,
   Stdlib::Absolutepath                                 $unbound_conf_d,
+  Hash[String, Unbound::Rpz]                           $rpzs,
 ) {
   unless $package_name.empty {
     package { $package_name:
