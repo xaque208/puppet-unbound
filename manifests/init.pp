@@ -292,6 +292,11 @@ class unbound (
     target  => $config_file,
     content => template('unbound/unbound.conf.erb'),
   }
+  concat::fragment { 'unbound_custom':
+    order   => '08',
+    target  => $config_file,
+    content => template('unbound/unbound_custom.conf.erb'),
+  }
   concat::fragment { 'unbound-modules':
     order   => '09',
     target  => $config_file,
